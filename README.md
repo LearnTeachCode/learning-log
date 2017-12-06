@@ -120,7 +120,7 @@ I think I can get away with only these features to have a working prototype that
 
 - Review the GitHub API for:
 
-- Creating a new repo on behalf of a user
+  - Creating a new repo on behalf of a user
   - Making a new file
   - Formatting text from a form to send to GitHub
 
