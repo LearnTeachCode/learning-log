@@ -111,9 +111,17 @@ I think I can get away with only these features to have a working prototype that
 ## Next steps for building first prototype
 
 - Decide: which questions or prompts to include in the template? (Review my notes from past classes and https://github.com/Kallaway/100-days-of-code/blob/master/log.md)
+
 - Decide: use Firebase for GitHub login, or use a tiny server to handle authentication myself? (Could use https://github.com/prose/gatekeeper)
+
+  - Pros for Firebase: easier to later add private notes functionality and more custom features that GitHub alone may not support.
+  
+  - Pros for GitHub auth on its own: less dependencies, less likely to eventually cost money if we have more users, and this project would be easier for others to use (no Firebase setup)
+
 - Review the GitHub API for:
-  - Creating a new repo on behalf of a user
+
+- Creating a new repo on behalf of a user
   - Making a new file
   - Formatting text from a form to send to GitHub
+
 - After creating initial functionality: use an existing form template or take code from a popular front-end framework
