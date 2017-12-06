@@ -4,6 +4,16 @@ A GitHub blogging tool with an easy-to-use interface, for students to document t
 **This file is currently a record of the project planning process, for demonstration purposes.** Later I'll move this to another file (or blog post?) and use this README for the usual setup instructions, etc.
 
 
+## Prioritized features for first prototype
+
+I think I can get away with only these features to have a working prototype that students can start using:
+
+- Log in with GitHub
+- Initialize a new GitHub repo on each student's user account upon initial login
+- Fill out a template of prompts for consistent structure and to help spark ideas
+- Simple front-end form to hide GitHub process in the background
+
+
 ## All feature ideas
 
 Initial feature brainstorming session:
@@ -97,16 +107,6 @@ Initial feature list above structured as user stories to dig into *who* the user
   
   - I want to be able to *post comments directly on our published blog posts*, so that I'll get more feedback and can more easily provide feedback to my classmates.
   
-
-## Prioritized features for first prototype
-
-I think I can get away with only these features to have a working prototype that students can start using:
-
-- Log in with GitHub
-- Initialize a new GitHub repo on each student's user account upon initial login
-- Fill out a template of prompts for consistent structure and to help spark ideas
-- Simple front-end form to hide GitHub process in the background
-
 
 ## Next steps for building first prototype
 
