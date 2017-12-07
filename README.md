@@ -4,6 +4,15 @@ A GitHub blogging tool with an easy-to-use interface, for students to document t
 **This file is currently a record of the project planning process, for demonstration purposes.** Later I'll move this to another file (or blog post?) and use this README for the usual setup instructions, etc.
 
 
+## Flowcharts for first prototype
+
+### User's experience
+
+![Flowchart of user's experience](https://raw.githubusercontent.com/LearnTeachCode/learning-log/master/learning-log-dev-flowchart-2017-12-06.svg)
+
+### Implementation details
+![Flowchart with implementation details]()
+
 ## Prioritized features for first prototype
 
 I think I can get away with only these features to have a working prototype that students can start using:
