@@ -8,12 +8,12 @@ A GitHub blogging tool with an easy-to-use interface, for students to document t
 
 ### User's experience
 
-![Flowchart of user's experience 2017-12-06](https://user-images.githubusercontent.com/1555022/33692742-a5896176-daa3-11e7-8dc4-cc35a52f4830.png)
+![Flowchart of user's experience 2017-12-06](https://user-images.githubusercontent.com/1555022/33692808-24218edc-daa4-11e7-9ba0-c84ab4465da1.png)
 
 
 ### Implementation details
 
-![Flowchart with implementation details 2017-12-06](https://user-images.githubusercontent.com/1555022/33692281-59ed4cc0-daa1-11e7-8f30-dadb770ffcc6.png)
+![Flowchart with implementation details 2017-12-06](https://user-images.githubusercontent.com/1555022/33692787-ffe50ff8-daa3-11e7-9cdc-1e3e1af0f5c6.png)
 
 
 ## Prioritized features for first prototype
