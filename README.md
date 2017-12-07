@@ -8,10 +8,13 @@ A GitHub blogging tool with an easy-to-use interface, for students to document t
 
 ### User's experience
 
-![Flowchart of user's experience](https://raw.githubusercontent.com/LearnTeachCode/learning-log/master/learning-log-dev-flowchart-2017-12-06.svg)
+![Flowchart of user's experience 2017-12-06](https://user-images.githubusercontent.com/1555022/33692742-a5896176-daa3-11e7-8dc4-cc35a52f4830.png)
+
 
 ### Implementation details
-![Flowchart with implementation details]()
+
+![Flowchart with implementation details 2017-12-06](https://user-images.githubusercontent.com/1555022/33692281-59ed4cc0-daa1-11e7-8f30-dadb770ffcc6.png)
+
 
 ## Prioritized features for first prototype
 
