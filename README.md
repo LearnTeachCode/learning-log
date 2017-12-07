@@ -8,7 +8,7 @@ A GitHub blogging tool with an easy-to-use interface, for students to document t
 
 ### User's experience
 
-![Flowchart of user's experience 2017-12-06](https://user-images.githubusercontent.com/1555022/33692808-24218edc-daa4-11e7-9ba0-c84ab4465da1.png)
+![Flowchart of user's experience 2017-12-06](https://user-images.githubusercontent.com/1555022/33692935-c0ff3808-daa4-11e7-8a88-c00eb0b6c07b.png)
 
 
 ### Implementation details
