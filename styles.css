@@ -1,0 +1,177 @@
+/* -------------------------------------------------
+        MAIN LAYOUT (for desktop)
+ --------------------------------------------------- */
+body {
+  box-sizing: border-box;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+}
+
+header h1, header p {
+  display: inline-block;
+  padding-left: 1em;
+}
+
+/* -------------------------------------------------
+        ELEMENTS / TYPOGRAPHY / SPACING
+ --------------------------------------------------- */
+
+h1 {
+  margin: 0;
+  margin-bottom: 1em;
+  padding: 0;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 0;    
+}
+
+input, textarea {
+  font-size: 16px;
+  padding: 3px;
+}
+
+textarea {    
+  font-family: Verdana, sans-serif;
+  padding: 10px;  
+  width: 100%;
+  min-height: 400px;  
+}
+
+.avatar {
+  width: 50px;
+  height: auto;
+  vertical-align: middle;
+  padding-right: 0.5em;
+}
+
+.green {
+  color: #52a800;
+}
+
+.bigbutton {
+  margin-top: 0.5em;
+  background: #91bd09;
+  font-size: 1.5em;
+  color: #111;
+  padding: 0.6em 1em;
+  border-radius: 0.5em;
+  border: 1px solid #79a000;
+}
+
+.bigbutton:hover {
+  transition: 0.2s;
+  background: #a9da11;
+  border: 1px solid #93c103;
+}
+
+/* -------------------------------------------------
+        LOGIN SCREEN
+ --------------------------------------------------- */
+#loginmodal {
+  opacity: 1;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(255,255,255);
+  background-color: rgba(0,0,0,0.8);  
+  -webkit-transition: opacity 0.5s linear;
+  transition: opacity 0.5s linear;
+}
+
+.modal-container {
+  background-color: #fefefe;
+  max-width: 30em;
+  margin: 15% auto;
+  padding: 3em;
+  border: 1px solid #888;
+  border-radius: 1em;
+  text-align: center;
+}
+
+#loginmodal p {
+  text-align: left;
+}
+
+#loginmodal h2 {
+  margin-bottom: 1.2em;
+}
+
+/* More specific selector to override #loginmodal p ... later maybe change from <p> to other elem?? */
+#loginmodal #loginloading {
+  display: none;
+  font-size: 1.5em;
+  padding: 0.6em 1em;
+  text-align: center;
+}
+
+.octicon {
+  padding-right: 0.1em;
+  vertical-align: middle;
+  fill: #222;
+}
+
+
+/* -------------------------------------------------
+        MAIN CONTENT
+ --------------------------------------------------- */
+#maincontent {
+  display: none;
+  opacity: 0;
+  -webkit-transition: opacity 1s linear;
+  transition: opacity 1s linear;
+  text-align: left;
+}
+
+#maincontent p {
+  text-align: left;
+}
+
+#maincontent h3 {
+  margin-top: 2em;
+}
+
+#maincontent h3:first-of-type {
+  margin-bottom: 2em;
+}
+
+#usercontent {
+  margin: 3em 0 2em;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  padding: 20px;
+}
+
+
+#useravatar {
+  width: 100px;
+  height: auto;
+  vertical-align: middle;
+  padding-right: 0.5em;
+}
+
+#username {
+  display: inline;
+}
+
+#maincontent form {
+  text-align: left;
+  margin-top: 1.5em;
+}
+
+/*#write {
+  display: none;
+}*/
+
+#published {
+  display: none;
+  margin-top: 2em;
+}
