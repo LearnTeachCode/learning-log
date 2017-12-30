@@ -1,5 +1,5 @@
 # learning-log
-The [Learning Log](https://github.com/LearnTeachCode/learning-log) web app helps students document their learning process on GitHub without requiring any experience with Git or GitHub! Using an easy-to-use interface, students can post logs right away, and then gradually move to using Git and GitHub as they learn more, to take control of their project however they prefer to!
+The [Learning Log](https://github.com/LearnTeachCode/learning-log) web app helps students document their learning process on GitHub without requiring any prior experience with Git or GitHub! Using simple web interface, students can post learning log entries right away and then gradually move to using Git and GitHub as they learn more.
 
 **This file is currently a record of the project planning process, for demonstration purposes.** Later I'll move this to another file (or blog post?) and use this README for the usual setup instructions, etc.
 
@@ -8,22 +8,43 @@ The [Learning Log](https://github.com/LearnTeachCode/learning-log) web app helps
 
 ### User's experience
 
-![Flowchart of user's experience 2017-12-06](https://user-images.githubusercontent.com/1555022/33692935-c0ff3808-daa4-11e7-8a88-c00eb0b6c07b.png)
+![Flowchart of user's experience 2017-12-28](https://raw.githubusercontent.com/LearnTeachCode/learning-log/master/learning-log-user-flow-2017-12-28.png)
 
 
 ### Implementation details
 
-![Flowchart with implementation details 2017-12-06](https://user-images.githubusercontent.com/1555022/33692787-ffe50ff8-daa3-11e7-9cdc-1e3e1af0f5c6.png)
+![Flowchart with implementation details 2017-12-28](https://raw.githubusercontent.com/LearnTeachCode/learning-log/master/learning-log-dev-flow-2017-12-28.png)
 
 
-## Prioritized features for first prototype
+## Version 0.1.0 features (first prototype)
 
-I think I can get away with only these features to have a working prototype that students can start using:
+(Using sementic versioning" https://semver.org/)
 
-- Log in with GitHub
-- Initialize a new GitHub repo on each student's user account upon initial login
-- Fill out a template of prompts for consistent structure and to help spark ideas
-- Simple front-end form to hide GitHub process in the background
+**Summary:** Users can create and edit Markdown-formatted learning log entries for the current day based on a suggested template, which are saved as files inside a GitHub repo that's created for the user (forked from a template repo). In this first version, users can only create or edit the current day's entry, and the form only includes a simple text box for now.
+
+  - Log in with GitHub
+  - Display loading message while logging in and initializing
+  - Upon login, fork a GitHub repo on behalf of the user (Current template repo: https://github.com/LearningNerd/learning-log-template)
+  - Display instructions with a link to [GitHub Markdown cheat sheet](https://guides.github.com/features/mastering-markdown/) for reference
+  - Display user's GitHub username and profile photo
+  - Display link to user's fork of the template repo
+  - Fill out a simple form containing a learning log template (for consistent structure and to help spark ideas)
+  - If an entry exists for the current day, display contents in the text box; otherwise, display the template
+  - Upon publishing or editing an entry, display links to view or edit the file on GitHub
+  - Display loading message while publishing an entry
+  - When entry has successfully been created or updated, display date and time of the latest update
+
+
+## Next: Version 0.2.0 feature list
+
+Some initial ideas for next features and fixes:
+
+  - Display list of past entries (date/title, option to edit, link to view on GitHub)
+  - Upon clicking edit link next to a past entry, display its contents in text box and allow user to save changes to that file
+  - Display live Markdown preview within or alongside text box
+  - Display any errors to the user in a notification area on the page
+  - Save user sessions, so users won't have to log in again after every page refresh (maybe take a look at https://makerlog.org/posts/using-cookies-with-browser-side-github-auth)
+  - ... collect other ideas based on initial feedback!
 
 
 ## All feature ideas
@@ -120,20 +141,12 @@ Initial feature list above structured as user stories to dig into *who* the user
   - I want to be able to *post comments directly on our published blog posts*, so that I'll get more feedback and can more easily provide feedback to my classmates.
   
 
-## Next steps for building first prototype
+## Questions about implementation details
 
 - Decide: which questions or prompts to include in the template? (Review my notes from past classes and https://github.com/Kallaway/100-days-of-code/blob/master/log.md)
 
-- Decide: use Firebase for GitHub login, or use a tiny server to handle authentication myself? (Could use https://github.com/prose/gatekeeper)
+- Decide: use Firebase for GitHub login, or use a tiny server to handle authentication myself? (For now, decided to use https://github.com/prose/gatekeeper)
 
   - Pros for Firebase: easier to later add private notes functionality and more custom features that GitHub alone may not support.
   
   - Pros for GitHub auth on its own: less dependencies, less likely to eventually cost money if we have more users, and this project would be easier for others to use (no Firebase setup)
-
-- Review the GitHub API for:
-
-  - Creating a new repo on behalf of a user
-  - Making a new file
-  - Formatting text from a form to send to GitHub
-
-- After creating initial functionality: use an existing form template or take code from a popular front-end framework
