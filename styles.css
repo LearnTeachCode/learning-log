@@ -43,7 +43,7 @@ textarea {
 }
 
 .avatar {
-  width: 50px;
+  width: 25px;
   height: auto;
   vertical-align: middle;
   padding-right: 0.5em;
@@ -67,6 +67,10 @@ textarea {
   transition: 0.2s;
   background: #a9da11;
   border: 1px solid #93c103;
+}
+
+.formtitle {
+  margin-top: 1.5em;  
 }
 
 /* -------------------------------------------------
@@ -135,14 +139,6 @@ textarea {
   text-align: left;
 }
 
-#maincontent h3 {
-  margin-top: 2em;
-}
-
-#maincontent h3:first-of-type {
-  margin-bottom: 2em;
-}
-
 #usercontent {
   margin: 3em 0 2em;
   border-bottom: 1px solid black;
@@ -173,5 +169,12 @@ textarea {
 
 #published {
   display: none;
-  margin-top: 2em;
+  border-bottom: 1px solid black;
+  margin: 2em 0;
+}
+
+#lastupdated {
+  font-style: italic;
+  margin-bottom: 0;
+  font-size: 0.9em;
 }
