@@ -1,24 +1,13 @@
-# learning-log
+# GitHub Learning Log
+
 The [Learning Log](https://github.com/LearnTeachCode/learning-log) web app helps students document their learning process on GitHub without requiring any prior experience with Git or GitHub! Using simple web interface, students can post learning log entries right away and then gradually move to using Git and GitHub as they learn more.
 
 **This file is currently a record of the project planning process, for demonstration purposes.** Later I'll move this to another file (or blog post?) and use this README for the usual setup instructions, etc.
 
 
-## Flowcharts for first prototype
-
-### User's experience
-
-![Flowchart of user's experience 2017-12-29](https://raw.githubusercontent.com/LearnTeachCode/learning-log/master/learning-log-user-flow-2017-12-29.png)
-
-
-### Implementation details
-
-![Flowchart with implementation details 2017-12-29](https://raw.githubusercontent.com/LearnTeachCode/learning-log/master/learning-log-dev-flow-2017-12-29.png)
-
-
 ## Version 0.1.0 features (first prototype)
 
-(Using sementic versioning" https://semver.org/)
+(Using sementic versioning: https://semver.org/)
 
 **Summary:** Users can create and edit Markdown-formatted learning log entries for the current day based on a suggested template, which are saved as files inside a GitHub repo that's created for the user (forked from a template repo). In this first version, users can only create or edit the current day's entry, and the form only includes a simple text box for now.
 
@@ -33,6 +22,14 @@ The [Learning Log](https://github.com/LearnTeachCode/learning-log) web app helps
   - Upon publishing or editing an entry, display links to view or edit the file on GitHub
   - Display loading message while publishing an entry
   - When entry has successfully been created or updated, display date and time of the latest update
+
+### Flowchart: user's experience
+
+![Flowchart of user's experience 2017-12-29](https://raw.githubusercontent.com/LearnTeachCode/learning-log/master/learning-log-user-flow-2017-12-29.png)
+
+### Flowchart: implementation details
+
+![Flowchart with implementation details 2017-12-29](https://raw.githubusercontent.com/LearnTeachCode/learning-log/master/learning-log-dev-flow-2017-12-29.png)
 
 
 ## Next: Version 0.2.0 feature list
