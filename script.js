@@ -4,14 +4,16 @@ console.log("Yay, script.js has loaded!");
 /* ------------------------------------------------------------
   LOCAL STATE:
 -------------------------------------------------------------- */
-const templateRepoName = 'learning-log-template';
+const templateRepoFullName = 'LearnTeachCode/learning-log-template';
 
-// ***********   TEMPORARY DISABLE FOR DEVELOPMENT/TESTING:  *************
-// let githubAccessToken, userData, userRepo;
+let existingFileSHA, githubAccessToken, userData, userRepo;
+
+/* -------------------------------------------------
+// TEMPORARY: for dev / testing:
 let githubAccessToken;
 let userData = {name: null, photo: null};
-let userRepo = {name: templateRepoName, url: 'https://github.com/LearningNerd/' + templateRepoName};
-
+let userRepo = {name: 'learning-log-template', url: 'https://github.com/LearnTeachCode/learning-log-template'};
+---------------------------------------------------- */
 
 /* -------------------------------------------------
   LIST OF DYNAMIC ELEMENTS (by HTML id):
@@ -26,13 +28,14 @@ let userRepo = {name: templateRepoName, url: 'https://github.com/LearningNerd/' 
   - useravatar      user avatar <img>
   - userrepo        link to user's learning log GitHub repo
 
-  - published       container for info on published log
-  - logtitle        title of learning log entry
+  - published       container for info on published log  
   - viewlog         link to view log on GitHub
   - editlog         link to EDIT log on GitHub
 
   - log-content     textarea containing user's learning log
   - logform         form element for the learning log
+  - lastupdated     paragraph at bottom of form, latest publish date/time
+  - publishbutton   button in form to publish log
 
 ---------------------------------------------------- */
 let loginModalView = document.getElementById('loginmodal');
@@ -47,12 +50,13 @@ let userAvatarView = document.getElementById('useravatar');
 let userRepoView = document.getElementById('userrepo');
 
 let publishedView = document.getElementById('published');
-let logTitleView = document.getElementById('logtitle');
 let viewLogView = document.getElementById('viewlog');
 let editLogView = document.getElementById('editlog');
 
 let logContentView = document.getElementById('log-content');
 let logFormView = document.getElementById('logform');
+let lastUpdatedView = document.getElementById('lastupdated');
+let publishButtonView = document.getElementById('publishbutton');
 
 /* -------------------------------------------------
   GITHUB AUTHENTICATION 
@@ -66,7 +70,7 @@ console.log("Just got tempCode: " + tempCode);
 // If GitHub tempcode already exists (which means user has started the login process),
 if ( tempCode ) {
   
-  // Update UI: show loading message and hide other modal content    
+  // Update UI: show loading message and hide other modal content
   loginModalContentView.style.display = "none";
   loginLoadingView.style.display = "block";
 
@@ -75,11 +79,17 @@ if ( tempCode ) {
 
   console.log("Just updated browser history to remove temp code parameter from URL.");
 
-  // Authenticate + log in with GitHub + set up reop
+  // Authenticate + log in with GitHub + set up repo
   loginAndInitialize(tempCode);
 
 }
 /* ------------------------------------------------- */
+
+// Initialize file name for today's learning log entry:
+let fileName = getCurrentFileDate() + "-log.md";
+
+// FOR LATER?: Jekyll formatted blog post titles:
+// let entryTitle = "Learning Log for " + getCurrentTitleDate();
 
 
 // When user clicks the login link, show loading message, in case of slow internet!
@@ -113,19 +123,34 @@ async function loginAndInitialize (tempCode) {
     // Save local state:
     userData = {name: userResponse.login, photo: userResponse.avatar_url};
 
-
-/* ************************    TEMPORARILY DISABLE FOR DEVELOPMENT/TESTING!!!!!  ******************************************
-
-    // ********   TODO / POSSIBLE BUG: Can forking support renamed repos???  ***********
-
+        // TODO: getting user data and forking repo can happen in parallel!
     // Fork the template repo
-    let forkRepoResponse = await requestWithGitHubToken('POST', 'https://api.github.com/repos/' + userData.login + '/' + templateRepoName + '/forks', null);
+    let forkRepoResponse = await requestWithGitHubToken('POST', 'https://api.github.com/repos/' + templateRepoFullName + '/forks', null);
     userRepo = {name: forkRepoResponse.name, url: forkRepoResponse.html_url}
 
     console.log('**************** Repo fork request completed! Reponse: *********************');
     console.log(forkRepoResponse);
 
-*/
+    try {
+
+      // Try to get file contents of learning log for today:      
+      let fileResponse = await requestWithGitHubToken('GET', 'https://api.github.com/repos/' + userData.name + '/' + userRepo.name + '/contents/' + fileName);
+
+      console.log('**************** Got file info from GitHub! Reponse: *********************');
+      console.log(fileResponse);
+
+      // If it exists (no 404 error), then update state so publishLog() function will update instead of create a new file:
+      existingFileSHA = fileResponse.sha;
+
+      // Update UI to display the decoded contents (instead of the default template)
+          // NOTE: this is a quick hack to to avoid broken special characters in the encoding process. See below:
+          // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/btoa#Unicode_strings
+      logContentView.value = decodeURIComponent(escape(window.atob(fileResponse.content)));
+      publishButtonView.value = 'Update Your Learning Log for Today!';
+
+    } catch (err) {
+      handleError("Learning log for today doesn't exist. No problem! Carry on and ignore this: " + err);
+    }
 
     // Update UI: show user name, avatar, GitHub repo info, and form
     updateLoggedInView(userData.name, userData.photo, userRepo.url);
@@ -140,19 +165,16 @@ async function loginAndInitialize (tempCode) {
 } // end of loginAndInitialize()
 
 
-// On form submission, handle publishing user data and updating UI
-function publishLog(event) {
+
+// TODO: rename this function? (since now it creates OR updates a file)
+async function createFile() {
 
   // Prevent browser's default behavior and *don't* refresh the page on form submission
   event.preventDefault();
 
-  // Create new file in user's GitHub repo
-  createFile(logContentView.textContent);
+  // Show "loading" message right above publish button (later: show a notification modal? nicer UI, please!)
+  lastUpdatedView.textContent = " ... Saving changes ... ";
 
-}
-
-
-async function createFile(entryContent) {
 
   // TODO: log error and show in notification: "Please log in with GitHub first! Then you can create your learning log."
   // If user hasn't signed in first, notify user to do so before submitting notes!
@@ -161,10 +183,11 @@ async function createFile(entryContent) {
   //   return; // Abort!!!
   // }
 
-  let fileName = getCurrentFileDate() + "-log.md";
-  let entryTitle = "Learning Log for " + getCurrentTitleDate();
 
-    let fileContent = '# ' + entryTitle + '\r\n\r\n' + entryContent;
+    // TODO: handle stripping out title / front matter when displaying and updating existing files!
+    //let fileContent = '# ' + logContentView.textContent + '\r\n\r\n' + entryContent;
+    let fileContent = logContentView.value;
+
 
   // TODO (?): Save log entries in a Jekyll friendly format for publishing as a website?
 //     let fileContent =
@@ -172,7 +195,7 @@ async function createFile(entryContent) {
 // title: ${entryTitle}
 // layout: post
 // ---
-// ${entryContent}
+// ${logContentView.value}
 // `;
 
     // Encode into base64, because GitHub requires that format for creating/editing files    
@@ -182,24 +205,34 @@ async function createFile(entryContent) {
 
     let newFileData = {
       "path": fileName,
-      "message": "New learning log (posted by @LearnTeachCode app: https://github.com/LearnTeachCode/learning-log)",
+      "message": "New entry (via @LearnTeachCode app: https://github.com/LearnTeachCode/learning-log)",
       "content": fileContent
     };
+
+    // If a file SHA exists, send it to GitHub to update the file, instead of creating a new one
+    if (existingFileSHA) {
+      newFileData["sha"] = existingFileSHA;
+      newFileData["message"] = "Update entry (via @LearnTeachCode app: https://github.com/LearnTeachCode/learning-log)";
+      publishButtonView.value = 'Update Your Learning Log for Today!';
+    }
 
     try {
       // Create new file on GitHub for this learning log entry
       let createFileResponse = await requestWithGitHubToken('PUT', 'https://api.github.com/repos/' + userData.name + '/' + userRepo.name + '/contents/' + fileName, newFileData);
 
-      console.log('**************** File created on GitHub! Reponse: *********************');
+      console.log('**************** File created or updated on GitHub! Reponse: *********************');
       console.log(createFileResponse);
 
+      // Update state so that the file can also be edited now
+      existingFileSHA = createFileResponse.content.sha;
+
       // Update UI if file created successfully
-      updateFileCreatedView(entryTitle, createFileResponse.content.html_url);
+      updateFileCreatedView(createFileResponse.content.html_url, createFileResponse.commit.author.date);
 
     } catch (err) {
 
       handleError("Error while creating new file on GitHub : " + err);
-      return; // STOP EVERYTHING!     
+      return; // STOP EVERYTHING!
     }
 
 }
@@ -207,8 +240,8 @@ async function createFile(entryContent) {
 
 // Update views for logged in user
 function updateLoggedInView (userName, userAvatar, repoLink) {  
-  // Register event listener for submitting the form
-  logFormView.addEventListener('submit', publishLog);
+  // Register event listener for creating or updating the log when submitting the form
+  logFormView.addEventListener('submit', createFile);
 
   // Display user data:
   userNameView.textContent = 'Welcome, ' + userName + '!';
@@ -232,25 +265,23 @@ function updateLoggedInView (userName, userAvatar, repoLink) {
 
 
 // Update UI after file successfully created
-function updateFileCreatedView(title, viewLink) {
+function updateFileCreatedView(viewLink, dateString) {
   
   // Generate edit link by replacing "blob" in the url with "edit":
   let editLink = viewLink.replace('blob', 'edit');
 
-  // Hide the "write" section with intructions and form
-  writeView.style.display = 'none';
-
   // Set learning log info in UI elements:
-  logTitleView.textContent = '"' + title + '"';
   viewLogView.innerHTML = '<a href="' + viewLink + '">' + viewLink + '</a>';
   editLogView.innerHTML = '<a href="' + editLink + '">' + editLink + '</a>';
 
   // Display info about published log:
   publishedView.style.display = 'block';
-  logTitleView.style.display = inline;
-  viewLogView.style.display = inline;
-  editLogView.style.display = inline;
+  viewLogView.style.display = 'inline';
+  editLogView.style.display = 'inline';
 
+  // Display latest publish or update date
+  // code snippet via https://stackoverflow.com/a/22914738
+  lastUpdatedView.textContent = "Last updated: " + new Date(dateString).toString();
 }
 
 
@@ -332,9 +363,9 @@ function getTempCode() {
   return null;
 }
 
-// Lazy error handling for now
+// Better error handling would go here :) This is a placeholder for now:
 function handleError(error) {
-  console.log("Error: " + error);
+  console.log(error);
 }
 
 // Get current date in 2018-12-31 format
@@ -347,7 +378,7 @@ function getCurrentFileDate() {
   return year + '-' + zeroPadDate(month) + '-' + zeroPadDate(day);
 }
 
-// Get current date in "December 31st, 2017" format
+// Get current date in "December 31st, 2017" format -- NOTE: currently not used! (Save for Jekyll formatted blog posts)
 function getCurrentTitleDate() {
   let today = new Date();
   let year = today.getFullYear();
