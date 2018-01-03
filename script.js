@@ -6,6 +6,7 @@ console.log("Yay, script.js has loaded!");
 -------------------------------------------------------------- */
 const templateRepoFullName = 'LearnTeachCode/learning-log-template';
 const gatekeeperInstance = 'https://learning-log-live.herokuapp.com/authenticate/';
+const appBaseURL = '/learning-log/';
 
 let existingFileSHA, githubAccessToken, userData, userRepo;
 
@@ -76,7 +77,7 @@ if ( tempCode ) {
   loginLoadingView.style.display = "block";
 
   // Remove parameter from URL, updating this entry in the client's browser history (for cleaner history)
-  history.replaceState(null, '', '/');
+  history.replaceState(null, '', appBaseURL);
 
   console.log("Just updated browser history to remove temp code parameter from URL.");
 
