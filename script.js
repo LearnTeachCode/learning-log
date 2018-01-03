@@ -5,7 +5,7 @@ console.log("Yay, script.js has loaded!");
   LOCAL STATE:
 -------------------------------------------------------------- */
 const templateRepoFullName = 'LearnTeachCode/learning-log-template';
-const gatekeeperInstance = 'https://learning-log-gatekeeper.herokuapp.com/authenticate/';
+const gatekeeperInstance = 'https://learning-log-live.herokuapp.com/authenticate/';
 
 let existingFileSHA, githubAccessToken, userData, userRepo;
 
