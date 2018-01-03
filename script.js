@@ -5,6 +5,7 @@ console.log("Yay, script.js has loaded!");
   LOCAL STATE:
 -------------------------------------------------------------- */
 const templateRepoFullName = 'LearnTeachCode/learning-log-template';
+const gatekeeperInstance = 'https://learning-log-gatekeeper.herokuapp.com/authenticate/';
 
 let existingFileSHA, githubAccessToken, userData, userRepo;
 
@@ -111,7 +112,7 @@ async function loginAndInitialize (tempCode) {
   try {
 
     // Exchange temp code for access token from Gatekeeper and save it locally:
-    let gateKeeperResponse = await getJSON('https://learning-log-gatekeeper.herokuapp.com/authenticate/' + tempCode);
+    let gateKeeperResponse = await getJSON(gatekeeperInstance + tempCode);
     githubAccessToken = gateKeeperResponse.token;
     console.log("access token from Gatekeeper:" + githubAccessToken);
 
