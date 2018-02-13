@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 # GitHub Learning Log
 
-=======
-# learning-log
->>>>>>> 923bd6fa9bdc8505772d40faf1422caf0b77d4d1
 The [Learning Log](https://github.com/LearnTeachCode/learning-log) web app helps students document their learning process on GitHub without requiring any prior experience with Git or GitHub! Using simple web interface, students can post learning log entries right away and then gradually move to using Git and GitHub as they learn more.
 
 **This file is currently a record of the project planning process, for demonstration purposes.** Later I'll move this to another file (or blog post?) and use this README for the usual setup instructions, etc.
